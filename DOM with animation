@@ -1,0 +1,62 @@
+<!DOM with animation interval=window.setInterval("(functionname)",timeperiod), window.clearInterval(interval) --------------don't forget " " in setInterval>
+<!DOCTYPE HTML>
+<html>
+ <head>
+ </head>
+ <body>
+  <div id="hh"></div>
+  <script>
+   interval=null;
+   var count=0;  
+   function run(im)
+   { count+=1;
+     if(count>=375)
+     { window.clearInterval(interval);
+       count=0;}
+     else
+     { im.height=count*1.5;
+       im.width=count*1.5;}}
+   function start()
+   { var st="";
+     st="<table border='1'><tr><td rowspan='4'><img src='C:/Users/beera/Downloads/fullsize/i01.jpg' id='full'></td><td id='01'></td><td id='02'></td>";
+     for(i=1;i<4;i++)
+     { st+="<tr><td id="+i+"1"+"></td><td id="+i+"2"+"></td></tr>";}
+     st+="</tr></table>"
+     d=document.getElementById("hh");
+     d.innerHTML=st;
+     for(i=0;i<4;i++)
+     { x=document.getElementById(i+"1");
+       y=document.getElementById(i+"2");
+       f=document.createElement("img");
+       g=document.createElement("img");
+       f.src="C:/Users/beera/Downloads/thumbs/"+i+"1"+".jpg";
+       f.id="i"+i+"1";
+       g.src="C:/Users/beera/Downloads/thumbs/"+i+"2"+".jpg";
+       g.id="i"+i+"2";
+       x.appendChild(f);
+       y.appendChild(g);}
+     a=document.getElementById("i01"); 
+     b=document.getElementById("i02"); 
+     c=document.getElementById("i11");
+     d=document.getElementById("i12"); 
+     e=document.getElementById("i21"); 
+     f=document.getElementById("i22"); 
+     g=document.getElementById("i31"); 
+     h=document.getElementById("i32");
+     a.addEventListener("click",function(){ loadi(a);},false);
+     b.addEventListener("click",function(){loadi(b);},false);
+     c.addEventListener("click",function(){loadi(c);},false);
+     d.addEventListener("click",function(){loadi(d);},false);
+     e.addEventListener("click",function(){loadi(e);},false);
+     f.addEventListener("click",function(){loadi(f);},false);
+     g.addEventListener("click",function(){loadi(g);},false);
+     h.addEventListener("click",function(){loadi(h);},false);}
+    function loadi(k)
+    { full.src="C:/Users/beera/Downloads/IMG_20230507_211517~4 (1).jpg";
+      full.width=50;
+      full.height=50;
+      interval=window.setInterval("run(full)",10);}
+    window.addEventListener("load",start,false);
+  </script>
+ </body>
+</html>
