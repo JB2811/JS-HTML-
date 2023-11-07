@@ -1,3 +1,4 @@
+<!photo will increase its size over time once clicked>
 <!DOM with animation interval=window.setInterval("(functionname)",timeperiod), window.clearInterval(interval) --------------don't forget " " in setInterval>
 <!DOCTYPE HTML>
 <html>
