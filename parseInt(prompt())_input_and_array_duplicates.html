@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+ <head>		
+  <title> Table </title>
+  <style>
+   #table1
+   { border-collapse:collapse;}	
+  </style>
+ </head>
+ <body>
+  <div id="res">Non-duplicate Elements:</div><br>
+  <script> 
+   n=new Array();
+   var i; 
+   for(i=0;i<5;i++)
+   { n[i]=parseInt(prompt("Enter a number: "));}
+   var o=0;
+   while(!isNaN(o))
+   { n[i]=parseInt(prompt("Enter a number: "));
+     o=n[i];
+     i++;}
+   </script>		
+   <script src="asc.js"></script>
+ </body>
+</html>
+-------------------------------------------------------
+asc.js
+
+var j,k;
+for(j=0;j<i;j++)
+{ for(k=j+1;k<i;k++)
+  { if(n[k]<n[j])
+    { var t=n[j];
+      n[j]=n[k];
+      n[k]=t;}}}
+document.writeln(n);
