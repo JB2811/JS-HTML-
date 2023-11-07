@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html id="html">
+ <head>
+ </head>
+ <body>
+ <center> 
+  <h1 id="bigheading">DOM Object HTML </h1>
+  <h4 id="smallheading">Element Functionality</h4>
+ </center>
+  <p id="para1">The Document Object Model (DOM) allows for quick, dynamic access to all elements in an HTML5 document for manipulation with JavaScript.</p>
+  <p id="para2">For more information, check out the "JavaScript and the DOM" section of Deitel's [link] JavaScript Resource Center.</p>
+  <p id="para3">The buttons below demonstrate:(list)</p>
+  <ul id="list">
+   <li id="item1">getElementById and parentNode</li>
+   <li id="item2">insertBefore and appendChild</li>
+   <li id="item3">replaceChild and removeChild</li>
+  </ul>
+  <label><input type="text" id="byid"><button id="gbyid">Get By id</button></label><br>
+  <label><input type="text" id="ib"><button id="ibb">Insert Before</button></label><br>
+  <label><input type="text" id="ac"><button id="acb">Append Child</button></label><br>
+  <label><input type="text" id="rc"><button id="rcb">Replace Current</button></label><br>
+  <button id="rec">Remove Current</button><br>
+  <button id="gp">Get Parent</button>
+  <ul>
+   <li>python programming</li>
+  </ul>
+  <script>
+   high=null;
+   var i=0;
+   function run()
+   { if(high)
+     { high.setAttribute("style","background-color:white");}
+     v=document.getElementById(document.getElementById("byid").value);
+     if(v)
+     { v.setAttribute("style","background-color:yellow");
+       high=v;}}
+   function run1()
+   { if(high)
+     { n=document.createElement("p");
+       n.setAttribute("id","new"+i);
+       n.innerHTML="new"+i;
+       high.parentNode.insertBefore(n,high);
+       i++;}}
+   function run2()
+   { if(high)
+     { n=document.createElement("p");
+       n.setAttribute("id","new"+i);
+       n.innerHTML="new"+i;
+       high.appendChild(n);
+       i++;}}
+   function start()
+   { document.getElementById("gbyid").addEventListener("click",run,false);
+     document.getElementById("ibb").addEventListener("click",run1,false);
+     document.getElementById("acb").addEventListener("click",run2,false);
+     document.getElementById("rcb").addEventListener("click",run,false);
+     document.getElementById("rec").addEventListener("click",run,false);
+     document.getElementById("gp").addEventListener("click",run,false);
+     c=document.getElementsByTagName("ul");
+     for(i=0;i<c.length;i++)
+     { h=document.createElement("li");
+       h.innerHTML="Machine Learning";
+       d=c[i].childNodes;
+       for(j=0;j<d.length;j++)
+       { if(d[j].innerHTML=="python programming")
+         { d[j].replaceWith(h);
+           break;}}}}	
+   window.addEventListener("load",start,false); 
+  </script>
+ </body>
+</html>
