@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+ <style>
+  table{ border-collapse: collapse;}
+ </style>
+ <script>
+  function start()
+  { var b=document.getElementById("roll");
+    b.addEventListener("click",rolldie,false);}
+  function rolldie()
+  { var img,s,x,i=0;
+    for(i=1;i<=12;i++)
+    { x=Math.floor(1+Math.random()*6);
+      s=document.getElementById(i+"i");
+      s.setAttribute("src","die"+x+".png");
+      s=document.getElementById(x+"f");
+      s.innerHTML++;}}
+  window.addEventListener("load",start,false);
+ </script>
+<body>
+ <p><img id = "1i" src = "blank.png" alt = "1i"> 
+    <img id = "2i" src = "blank.png" alt = "2i">
+    <img id = "3i" src = "blank.png" alt = "3i">
+    <img id = "4i" src = "blank.png" alt = "4i">
+    <img id = "5i" src = "blank.png" alt = "5i">
+    <img id = "6i" src = "blank.png" alt = "6i"></p>
+ <p><img id = "7i" src = "blank.png" alt = "7i">
+    <img id = "8i" src = "blank.png" alt = "8i"> 
+    <img id = "9i" src = "blank.png" alt = "9i">
+    <img id = "10i" src = "blank.png" alt = "10i">
+    <img id = "11i" src = "blank.png" alt = "11i">
+    <img id = "12i" src = "blank.png" alt = "12i"></p>
+ <form action="#">
+  <p> <input type="button" id="roll" value="roll"> </p>
+ </form>
+ <table border="1">
+  <caption style="align:center">Die Rolling Frequencies</caption>
+  <tr>
+   <td>Face</td> 
+   <td>Frequency</td> 
+   <td>Percent</td> 
+  </tr>
+  <tr>
+   <td>1</td> 
+   <td id="1f">0</td> 
+   <td id="1p">0</td> 
+  </tr>
+  <tr>
+   <td>2</td> 
+   <td id="2f">0</td> 
+   <td id="2p">0</td> 
+  </tr>
+  <tr>
+   <td>3</td> 
+   <td id="3f">0</td> 
+   <td id="3p">0</td> 
+  </tr>
+  <tr>
+   <td>4</td> 
+   <td id="4f">0</td> 
+   <td id="4p">0</td> 
+  </tr>
+  <tr>
+   <td>5</td> 
+   <td id="5f">0</td> 
+   <td id="5p">0</td> 
+  </tr>
+  <tr>
+   <td>6</td> 
+   <td id="6f">0</td> 
+   <td id="6p">0</td> 
+  </tr>
+ </table>
+</body>
+</html>
