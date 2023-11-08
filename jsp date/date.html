@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title></title>
+ </head>
+ <body>
+  <p id="res"></p>
+ </body>
+ <script>
+  date=new Date();
+  var h=date.getHours();
+  var mi=date.getMinutes();
+  var s=date.getSeconds();
+  var y=date.getFullYear();
+  var d=date.getDate();
+  var m=date.getMonth();
+  var t="Date: "+d+"<br>Month: "+m+"<br>Year: "+y+"<br>Hours: "+h+"<br>Minutes: "+mi+"<br>Seconds: "+s;
+  document.getElementById("res").innerHTML=t;
+ </script>
+</html>
