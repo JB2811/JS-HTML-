@@ -1,0 +1,72 @@
+INCREMENTAL FIELD UPDATE
+
+CREATING FORM:-
+<form method=”post” action=”Success.php”>
+<table>
+<tr>
+<td><label for=”txtUsername”>Username</label></td>
+<td><input type=”text” id=”txtUsername” name=”txtUsername” />
+<img src=”error.gif” alt=”Error” id=”imgUsernameError”
+style=”display:none” /></td>
+</tr>
+</table>
+<input type=”submit” id=”btnNext” value=”Next” />
+</form>
+
+
+VALIDATING FIELD USING JAVA SCRIPT (STUDY INCREMENTAL FORM UPDATE FOR validate.php, )
+
+var oXHR = null;
+var iTimeoutId = null;
+function validateField(oEvent) {
+oEvent = oEvent || window.event;
+var txtField = oEvent.target || oEvent.srcElement;
+var btnNext = document.getElementById(“btnNext”);
+btnNext.disabled = true;
+if (iTimeoutId != null) {
+clearTimeout(iTimeoutId);
+iTimeoutId = null;
+}
+if (!oXHR) {
+oXHR = zXmlHttp.createRequest();
+} else if (oXHR.readyState != 0) {
+oXHR.abort();
+}
+oXHR.open(“get”, “ValidateForm.php?” + txtField.name + “=”
++ encodeURIComponent(txtField.value), true);
+oXHR.onreadystatechange = function () {
+if (oXHR.readyState == 4) {
+if (oXHR.status == 200 || oXHR.status == 304) {
+var arrInfo = oXHR.responseText.split(“||”);
+var imgError = document.getElementById(“img”+ txtField.id.substring(3) + “Error”);
+if (!eval(arrInfo[0])) {
+imgError.title = arrInfo[1];
+imgError.style.display = “”;
+txtField.valid = false;
+} else {
+imgError.style.display = “none”;
+txtField.valid = true;
+}
+btnNext.disabled = !txtField.valid;
+} else {
+alert(“An error occurred while trying to contact the server.”);
+}
+}
+};
+iTimeoutId = setTimeout(function () {
+oXHR.send(null);
+}, 500);
+};
+
+CREATING AJAX EVENT
+
+window.onload = function () {
+if (zXmlHttp.isSupported()) {
+var btnNext = document.getElementById(“btnNext”);
+var txtUsername = document.getElementById(“txtUsername”);
+btnNext.disabled = true;
+txtUsername.onkeyup = validateField;
+txtUsername.onchange = validateField;
+txtUsername.valid = false;
+}
+};
