@@ -1,4 +1,4 @@
-INCREMENTAL FIELD UPDATE
+INCREMENTAL FIELD UPDATE - onkeyup event
 
 CREATING FORM:-
 <form method=”post” action=”Success.php”>
