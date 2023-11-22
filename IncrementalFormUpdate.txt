@@ -1,0 +1,107 @@
+CREATING A PURE HTML FORM WITHOUT AN AJAX METHODS
+<form method=”post” action=”Success.php”>
+<table>
+<tr>
+<td><label for=”txtFirstName”>First Name</label></td>
+<td><input type=”text” id=”txtFirstName” name=”txtFirstName” /></td>
+</tr>
+<tr>
+<td><label for=”txtLastName”>Last Name</label></td>
+<td><input type=”text” id=”txtLastName” name=”txtLastName” /></td>
+</tr>
+<tr>
+<td><label for=”txtEmail”>E-mail</label></td>
+<td><input type=”text” id=”txtEmail” name=”txtEmail” /><img
+src=”error.gif” alt=”Error” id=”imgEmailError” style=”display:none” /></td>
+</tr>
+<tr>
+<td><label for=”txtUsername”>Username</label></td>
+<td><input type=”text” id=”txtUsername” name=”txtUsername” /><img
+src=”error.gif” alt=”Error” id=”imgUsernameError” style=”display:none” /></td>
+</tr>
+<tr>
+<td><label for=”txtBirthday”>Birthday</label></td>
+<td><input type=”text” id=”txtBirthday” name=”txtBirthday” /><img
+src=”error.gif” alt=”Error” id=”imgBirthdayError” style=”display:none” />
+(m/d/yyyy)</td>
+</tr>
+<tr>
+<td><label for=”selGender”>Gender</label></td>
+<td><select id=”selGender”
+name=”selGender”><option>Male</option><option>Female</option></select></td>
+</tr>
+</table>
+<input type=”submit” id=”btnSignUp” value=”Sign Up!” />
+</form>
+
+from the above form, only some fields are validated.
+
+
+CREATING A JAVASCRIPT FOR VALIDATION OF THE FIELDS. THIS SCRIPT USES A PHP FILE FOR VALIDATION WHICH RETURNS "<true|false>||<error message>" AS A STRING.
+NOTE: 1. arrInfo=['true|false','error message'] (splitted from string returned from php file)
+      2. encodeURIComponent(txtfield.value)=encodes the the value from the form to the url
+
+function validateField(oEvent) {
+oEvent = oEvent || window.event;
+var txtField = oEvent.target || oEvent.srcElement;
+var oXHR = zXmlHttp.createRequest();
+oXHR.open(“get”, “ValidateForm.php?” + txtField.name + “=”
++ encodeURIComponent(txtField.value), true);
+oXHR.onreadystatechange = function () {
+if (oXHR.readyState == 4) {
+if (oXHR.status == 200 || oXHR.status == 304) {
+var arrInfo = oXHR.responseText.split(“||”);
+var imgError = document.getElementById(“img”
++ txtField.id.substring(3) + “Error”);
+var btnSignUp = document.getElementById(“btnSignUp”);
+if (!eval(arrInfo[0])) {
+imgError.title = arrInfo[1];
+imgError.style.display = “”;
+txtField.valid = false;
+} else {
+imgError.style.display = “none”;
+txtField.valid = true;
+}
+btnSignUp.disabled = !isFormValid();
+} else {
+alert(“An error occurred while trying to contact the server.”);
+}
+}
+};
+oXHR.send(null);
+}
+
+
+CREATING A FULL FORM VALIDITY CHECKER TO ENABLE sign up! BUTTON
+NOTE: 1. document.forms[0] : Fetching the form
+      2. form.elements     : Fetching the elements from form
+
+function isFormValid() {
+var frmMain = document.forms[0];
+var blnValid = true;
+for (var i=0; i < frmMain.elements.length; i++) {
+if (typeof frmMain.elements[i].valid == “boolean”) {
+blnValid = blnValid && frmMain.elements[i].valid;
+}
+}
+return blnValid;
+}
+
+//if Ajax is enabled, disable the submit button and assign event handlers
+USING onchange EVENTS TO IMPLEMENT AJAX
+
+window.onload = function () {
+if (zXmlHttp.isSupported()) {
+var btnSignUp = document.getElementById(“btnSignUp”);
+var txtUsername = document.getElementById(“txtUsername”);
+var txtBirthday = document.getElementById(“txtBirthday”);
+var txtEmail = document.getElementById(“txtEmail”);
+btnSignUp.disabled = true;
+txtUsername.onchange = validateField;
+txtBirthday.onchange = validateField;
+txtEmail.onchange = validateField;
+txtUsername.valid = false;
+txtBirthday.valid = false;
+txtEmail.valid = false;
+}
+};
