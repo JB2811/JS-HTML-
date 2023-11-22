@@ -1,0 +1,79 @@
+PERIODIC REFRESH TO CHECK A BLOG FOR NEW COMMENTS
+
+DATABASE FOR STRING COMMENTS AND INFO ABOUT IT
+
+CREATE TABLE `BlogComments` (
+`CommentId` INT NOT NULL AUTO_INCREMENT ,
+`BlogEntryId` INT NOT NULL ,
+`Name` VARCHAR( 100 ) NOT NULL ,
+`Message` VARCHAR( 255 ) NOT NULL ,
+`Date` DATETIME NOT NULL ,
+PRIMARY KEY (`CommentId`)
+) COMMENT = ‘Blog Comments’;
+
+SQL QUERY TO RETURN THE LATEST COMMENT: select CommentId,Name,LEFT(Message, 50)
+                                        from BlogComments order by Date desc
+                                        limit 0,1
+
+OBJECTS FOR HANDLING THE PERIODIC REFRESH
+
+var oXHR = null; //The XHR object
+var iInterval = 1000; //The interval to check (in milliseconds)
+var iLastCommentId = -1; //The ID of the last comment received
+var divNotification = null; //The layer to display the notification
+
+FUNCTION IN JAVASCRIPT TO DISPLAY THE COMMENT NOTIFICATION
+
+function showNotification(sName, sMessage) {
+if (!divNotification) {
+divNotification = document.createElement(“div”);
+divNotification.className = “notification”;
+document.body.appendChild(divNotification);
+}
+divNotification.innerHTML = “<strong>New Comment</strong><br />” + sName
++ “ says: “ + sMessage + “...<br /><a href=\”ViewComment.php?id=”
++ iLastCommentId + “\”>View</a>”;
+divNotification.style.top = document.body.scrollTop + “px”;
+divNotification.style.left = document.body.scrollLeft + “px”;
+divNotification.style.display = “block”;
+setTimeout(function () {
+divNotification.style.display = “none”;
+}, 5000);
+}
+
+CODE IN JAVASCRIPT TO CHECK FOR NEW COMMENTS USING readystatechange THROUGH XmlHttpRequest object
+
+function checkComments() {
+if (!oXHR) {
+oXHR = zXmlHttp.createRequest();
+} else if (oXHR.readyState != 0) {
+oXHR.abort();
+}
+oXHR.open(“get”, “CheckComments.php”, true);
+oXHR.onreadystatechange = function () {
+if (oXHR.readyState == 4) {
+if (oXHR.status == 200 || oXHR.status == 304) {
+var aData = oXHR.responseText.split(“||”);
+if (aData[0] != iLastCommentId) {
+iLastCommentId = aData[0];
+if (iLastCommentId != -1) {
+89
+Ajax Patterns
+
+showNotification(aData[1], aData[2]);
+}
+}
+setTimeout(checkComments, iInterval);
+}
+}
+};
+oXHR.send(null);
+}
+
+INTITIATING AJAX
+
+window.onload = function () {
+if (zXmlHttp.isSupported()) {
+checkComments();
+}
+};
