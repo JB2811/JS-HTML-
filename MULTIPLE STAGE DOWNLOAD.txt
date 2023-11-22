@@ -1,0 +1,53 @@
+MULTIPLE STAGE DOWNLOAD IN A WEBSITE
+
+CREATING A NORMAL WEBSITE TO HOLD THE LAYOUT
+
+<!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN”
+“http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
+<html xmlns=”http://www.w3.org/1999/xhtml”>
+<head>
+<title>Article Example</title>
+<script type=”text/javascript” src=”zxml.js”></script>
+<script type=”text/javascript” src=”Article.js”></script>
+<link rel=”stylesheet” type=”text/css” href=”Article.css” />
+</head>
+<body>
+<h1>Article Title</h1>
+<div id=”divAdditionalLinks”></div>
+<div id=”divPage1”>
+<!-- article content here -->
+</div>
+</body>
+</html>
+
+ADDITIONAL FILE TO DISPLAY THE ADDITIONAL INFORMATION IN WEB PAGE THAT WILL BE DOWNLOADED IN STAGES
+
+<h4>Additional Information</h4>
+<ul>
+<li><a href=”http://www.wrox.com”>Wrox</a></li>
+<li><a href=”http://www.nczonline.net”>NCZOnline</a></li>
+<li><a href=”http://www.wdonline.com”>XWeb</a></li>
+</ul>
+
+JAVASCRIPT FUNCTIOANLOTY TO HANDLE MULTIPLE STAGE DOWNLOADING AND INITIATING AJAX
+
+function downloadLinks() {
+var oXHR = zXmlHttp.createRequest();
+oXHR.open(“get”, “AdditionalLinks.txt”, true);
+oXHR.onreadystatechange = function () {
+if (oXHR.readyState == 4) {
+if (oXHR.status == 200 || oXHR.status == 304) {
+var divAdditionalLinks =
+document.getElementById(“divAdditionalLinks”);
+divAdditionalLinks.innerHTML = oXHR.responseText;
+divAdditionalLinks.style.display = “block”;
+}
+}
+}
+oXHR.send(null);
+}
+window.onload = function () {
+if (zXHR.isSupported()) {
+downloadLinks();
+}
+};
