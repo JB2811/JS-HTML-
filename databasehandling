@@ -1,0 +1,61 @@
+FRONT END TO ENTER DATA
+
+<html>
+ <body>
+   <p>Name:<input type="text" id="name" name="name"></p>
+   <p>Rollno:<input type="number" id="roll" name="roll"></p>
+   <p>PhoneNumber:<input type="number" id="phn" name="phn"></p>
+   <p>Age:<input type="number" id="age" name="age"></p>
+   <input type="button" id="submit" value="submit">
+   <div id="res"></div>
+  <script src="jquery-3.7.1.js"></script>
+  <script> $("#submit").click( function()
+				  { name=document.getElementById("name").value;
+				    roll=document.getElementById("roll").value;
+				    age=document.getElementById("age").value;
+				    phn=document.getElementById("phn").value;
+				    urlg="submit.jsp?name="+name+"&roll="+$("input[name='roll']").val()+"&phn="+$("input[name='phn']").val()+"&age="+$("input[name='age']").val();
+				    document.writeln(urlg);
+				    $.ajax({url:urlg,success:function(){document.getElementById("res").innerHTML="success"}});});</script>
+ </body>
+</html>
+
+ENTERING DATA INTO DATABASE
+  
+<%@page language="java" pageEncoding="utf-8"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
+<%
+ String name=request.getParameter("name");
+ int age=Integer.parseInt(request.getParameter("age"));
+ int phn=Integer.parseInt(request.getParameter("phn"));
+ int roll=Integer.parseInt(request.getParameter("roll"));
+ Connection connection=null;
+ Class.forName("com.mysql.jdbc.Driver");
+ connection=DriverManager.getConnection("jdbc:mysql://localhost:3406/customer","root","");
+ Statement s=connection.createStatement();
+ String query="INSERT INTO customer VALUES("+roll+",'"+name+"',"+phn+","+age+");";
+ s.executeUpdate(query);
+%>
+
+READING DATA FROM DATABASE
+
+<%@page language="java" pageEncoding="utf-8"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
+<%
+ Connection connection=null;
+ Class.forName("com.mysql.jdbc.Driver").newInstance();
+ connection=DriverManager.getConnection("jdbc:mysql://localhost:3406/customer","root","");	
+ String query="SELECT * FROM customer WHERE ID=2";
+ PreparedStatement s=connection.prepareStatement(query);
+ ResultSet rs=s.executeQuery(query);
+ out.println('r');
+ while(rs.next())
+ { out.println("\n"+rs.getString("ID"));
+   out.println("\n"+rs.getString("Name"));
+   out.println("\n"+rs.getString("Age"));
+   out.println("\n"+rs.getString("phone"));}	
+%>
+
+  
