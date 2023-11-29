@@ -58,4 +58,17 @@ READING DATA FROM DATABASE
    out.println("\n"+rs.getString("phone"));}	
 %>
 
-  
+UPDATING DATA BASE
+
+<%@page language="java" pageEncoding="utf-8"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
+<%
+ Connection connection=null;
+ Class.forName("com.mysql.jdbc.Driver").newInstance();
+ connection=DriverManager.getConnection("jdbc:mysql://localhost:3406/customer","root","");	
+ String query="UPDATE customer SET Name='Jay' WHERE ID=1;";
+ Statement s=connection.createStatement();
+ s.executeUpdate(query);	
+%>
+
