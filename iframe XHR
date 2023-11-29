@@ -1,0 +1,39 @@
+HTML PAGE
+
+parent.<function-name> ----- used to call parent frame from iframe
+
+<html>
+ <body>
+  Name:<input type="text" name="name" id="name"><br>
+  Rollno:<input type="number" name="roll" id="roll">
+  <button onclick="func()">submit</button>
+  <div id="res"></div>
+  <iframe src="about:blank" style="display:none" name="hiddenFrame"></iframe>
+  <script src="jquery-3.7.1.js"></script>
+  <script>
+   function func()
+   { top.frames["hiddenFrame"].location="success.jsp?name="+$("#name").val()+"&roll="+$("#roll").val();}
+   function disp(t)
+   { $("#res").text(t);}
+  </script>
+ </body>
+</html>
+
+
+
+SUCCESS.JSP
+
+<html>
+<body>
+<%
+ String n=request.getParameter("name");
+ String r=request.getParameter("roll");
+ String re=r+n;
+%>
+<div id="result"><%=re%></div>
+<script>
+window.onload=function()
+	      { parent.disp(document.getElementById("result").innerHTML);}
+</script>
+</body>
+</html>
