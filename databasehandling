@@ -74,3 +74,16 @@ UPDATING DATA BASE
  s.executeUpdate(query);	
 %>
 
+DELETING DATABASE ELEMENTS
+
+<%@page language="java" pageEncoding="utf-8"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
+<%
+ Connection connection=null;
+ Class.forName("com.mysql.jdbc.Driver").newInstance();
+ connection=DriverManager.getConnection("jdbc:mysql://localhost:3406/customer","root","");	
+ String query="DELETE FROM customer WHERE ID=33;";
+ Statement s=connection.createStatement();
+ s.executeUpdate(query);	
+%>
