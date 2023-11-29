@@ -18,3 +18,25 @@ function myFunction(event) {
 
 </body>
 </html>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<html>
+ <body onclick="change(event)">
+  <h1>This is a h1 element</h1>
+  <p>I am a p tag</p>
+  <h2>I am h2 tag</h2>
+  <div>I am div tag</div>
+  <script>
+   function change(event)
+   { tag=event.target.tagName;
+     element=event.target;
+     if(tag=="P")
+     { element.setAttribute("style","color:Red");}
+     else if(tag=="H1")
+     { element.setAttribute("style","color:Magenta");}
+     else
+     { element.setAttribute("style","color:Green");}}
+  </script>
+ </body>
+</html>
