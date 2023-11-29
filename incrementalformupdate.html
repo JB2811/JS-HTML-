@@ -1,0 +1,52 @@
+<html>
+ <body>
+   <p>Name:<input type="text" id="name" name="name"></p>
+   <p>Rollno:<input type="number" id="roll" name="roll"></p>
+   <p>PhoneNumber:<input type="number" id="phn" name="phn"></p>
+   <p>Age:<input type="number" id="age" name="age"></p>
+   <input type="submit" id="submit" value="Sign up!">
+   <div id="res"></div>
+   <script>
+    function isformvalid()
+    { n=document.getElementById("name");
+      r=document.getElementById("roll");
+      p=document.getElementById("phn");
+      a=document.getElementById("age");
+      if(n.valid&&r.valid&&r.valid&&a.valid)
+      { b=document.getElementById("submit").disabled=false;}}
+    function validatefield(event)
+    { if(event.target.name=="name")
+      { val=document.getElementById("name").value;
+        if(val.length>0)
+        { event.target.valid=true;}}
+      else if(event.target.name=="roll")
+      { val=document.getElementById("roll").value;
+        if(val.length>0)
+        { event.target.valid=true;}}
+      else if(event.target.name=="phn")
+      { val=document.getElementById("phn").value;
+        if(val.length>0)
+        { event.target.valid=true;}}
+      else
+      { val=document.getElementById("age").value;
+        if(val.length>0)
+        { event.target.valid=true;}}
+      isformvalid();}
+    window.onload=function()
+		  { n=document.getElementById("name");
+		    r=document.getElementById("roll");
+		    p=document.getElementById("phn");
+		    a=document.getElementById("age");
+		    b=document.getElementById("submit");
+		    b.disabled=true;
+		    n.valid=false;
+		    a.valid=false;
+		    r.valid=false;
+		    p.valid=false;
+		    n.onchange=validatefield;
+		    r.onchange=validatefield;
+		    a.onchange=validatefield;
+		    p.onchange=validatefield;};
+   </script>
+   </body>
+</html>
