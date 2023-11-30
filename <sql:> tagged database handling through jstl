@@ -1,0 +1,42 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<html>
+<body>
+
+#GETTING THE DATABASE (not the table) ATTACHING THE SOURCE TO A VARIABLE
+
+<sql:setDataSource var="db" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3406/customer" user="root" password=""/>
+
+#CODE TO CREATE A TABLE INSIDE THE ACQUIRED DATABASE SOURCE
+
+<sql:update dataSource="${db}" var="newt">
+CREATE table reader (name varchar(10),Id int);
+</sql:update>
+
+#CODE TO DELETE A TABLE INSIDE THE ACQUIRED DATABASE SOURCE
+
+<sql:update dataSource="${db}" var="newt">
+DROP table reader;
+</sql:update>
+
+#CODE TO QUERY A TABLE INSIDE THE ACQUIRED DATABASE SOURCE AND DISPLAY DATA FROM THE TABLE USING JSTL
+
+<sql:query dataSource="${db}" var="rs" maxRows ="5">
+SELECT * from Customer;
+</sql:query>
+
+<c:forEach var="table" items="${rs.rows}">
+<c:out value="${table.Name}"/>
+<c:out value="${table.ID}"/>
+<c:out value="${table.phone}"/>
+<c:out value="${table.Age}"/>
+</c:forEach>
+
+#CODE TO UPDATE THE RECORDS IN TABLE
+
+<sql:update dataSource="${db}" var="r">
+UPDATE customer SET Name="Jay" WHERE ID=2;
+</sql:update>
+
+</body>
+</html>
