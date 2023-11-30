@@ -68,3 +68,59 @@
   </script>
  </body>
 </html>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<html>
+ <head><title>DOM</title></head>
+ <body><center>
+  <h1 id="bigheading">[bigheading] DHTML object HTML</h1>
+  <h5 id="smallheading">[smallheading]Element Functionality</h5></center>
+  <p id="para1">[para 1] I am Para 1</p>
+  <p id="para2">[para 2] I am para 2</p>
+  <ol id="list">
+   <li id="item1">[item 1] Python</li>
+   <li id="item2">[item 2] Java</li>
+   <li id="item3">[item 3] CPP</li>
+  </ol>
+ <input type="text" id="gbyid"><input type="button" value="get by id" onclick="gbyid()"><br>
+ <input type="text" id="ibf"><input type="button" value="insertBefore" onclick="ibf()"><br>
+ <input type="text" id="apc"><input type="button" value="appendChild" onclick="apc()"><br>
+ <input type="text" id="rcur"><input type="button" value="replaceWith" onclick="rpw()"><br>
+ <input type="button" value="removeCurrent" onclick="rc()"><br>
+ <input type="button" value="Get Parent">
+ </body>
+ <script>
+  y=0;
+  i=0;
+  function gbyid()
+  { x=document.getElementById(document.getElementById("gbyid").value);
+    x.setAttribute("style","background-color:yellow");
+    if(y!=0 && y!=x)
+    { y.setAttribute("style","background-color:white");}
+    y=x;}
+  function ibf()
+  { x=document.getElementById(document.getElementById("ibf").value);
+    n=document.createElement("p");
+    n.setAttribute("id","new"+i);
+    n.innerHTML="name"+i;
+    x.parentNode.insertBefore(n,x);
+    i++;} 
+  function apc()
+  { x=document.getElementById(document.getElementById("apc").value);
+    n=document.createElement("p");
+    n.setAttribute("id","new"+i);
+    n.innerHTML="name"+i;
+    x.appendChild(n);
+    i++;}
+  function rpw()
+  { x=document.getElementById(document.getElementById("rcur").value);
+    n=document.createElement("p");
+    n.setAttribute("id","new"+i);
+    n.innerHTML="name"+i;
+    x.replaceWith(n);
+    i++;}
+  function rc()
+  { x=document.getElementById(document.getElementById("gbyid").value);
+    x.parentNode.removeChild(x);} 
+ </script>
+</html>
